@@ -18,7 +18,8 @@ const CreateNFT = () => {
   // console.log('form data', formInput);
   const onDrop = useCallback(async (acceptedFile) => {
     // upload image to the ipfs
-    const url = await uploadToIPFS(acceptedFile[0]);
+    console.log('acceptedFile', acceptedFile);
+    const url = await uploadToIPFS(acceptedFile);
     console.log('ipfs File', url);
     setFileUrl(url);
   }, []);
