@@ -47,4 +47,5 @@ artifacts
 frontendFile.zip
 
 .secret
+next.config.js
 

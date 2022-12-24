@@ -3,7 +3,6 @@ import { create as ipfsHttpClient } from 'ipfs-http-client';
 import React, { useEffect, useState } from 'react';
 import Web3Modal from 'web3modal';
 import { MarketAdddressABI, MarketAddress } from './constants';
-import { Web3Storage } from 'web3.storage';
 
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0');
 
