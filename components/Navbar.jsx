@@ -3,7 +3,7 @@ import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState, useContext } from 'react';
+import { useContext, useState } from 'react';
 
 import { Button } from '.';
 import images from '../assets';
@@ -13,7 +13,7 @@ const MenuItems = ({ isMobile, active, setActive }) => {
   const generateLink = (i) => {
     switch (i) {
       case 0: return '/';
-      case 1: return '/created-nfts';
+      case 1: return '/listed-nfts';
       case 2: return '/my-nfts';
       default: return '/';
     }
