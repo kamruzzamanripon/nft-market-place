@@ -4,6 +4,7 @@ import React, { useContext } from 'react';
 
 import images from '../assets';
 import { NFTContext } from '../context/NFTContext';
+import { shortenAddress } from '../utils/shortenAddress';
 
 const NFTCard = ({ nft }) => {
   const { nftCurrency } = useContext(NFTContext);
@@ -25,7 +26,9 @@ const NFTCard = ({ nft }) => {
             <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xs minlg:text-lg">{nft.price}
               <span className="normal">{nftCurrency}</span>
             </p>
-            <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xs minlg:text-lg">{nft.seller}</p>
+            <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xs minlg:text-lg">
+              {nft.seller.length > 10 ? shortenAddress(nft.seller) : nft.seller}
+            </p>
           </div>
         </div>
 

@@ -1,11 +1,9 @@
+import axios from 'axios';
 import { ethers } from 'ethers';
-import { create as ipfsHttpClient } from 'ipfs-http-client';
 import React, { useEffect, useState } from 'react';
 import { Web3Storage } from 'web3.storage';
 import Web3Modal from 'web3modal';
 import { MarketAdddressABI, MarketAddress } from './constants';
-
-const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0');
 
 const fetchContract = (signerOrProvider) => new ethers.Contract(MarketAddress, MarketAdddressABI, signerOrProvider);
 
@@ -87,14 +85,43 @@ export const NFTProvider = ({ children }) => {
 
     const price = ethers.utils.parseUnits(formInputPrice, 'ether');
     const contract = fetchContract(signer);
-    console.log('createSale', contract);
+    // console.log('createSale', contract);
     const listingPrice = await contract.getListingPrice();
-    console.log('listingPrice', listingPrice);
+    // console.log('listingPrice', listingPrice);
 
     const transaction = await contract.createToken(url, price, { value: listingPrice.toString() });
-    console.log('transaction');
+    // console.log('transaction');
     await transaction.wait();
-    console.log('transaction2', transaction);
+    // console.log('transaction2', transaction);
+  };
+
+  const fetchNFTs = async () => {
+    const provider = new ethers.providers.JsonRpcProvider();
+    const contract = fetchContract(provider);
+
+    const data = await contract.fetchMarketItems();
+
+    const items = await Promise.all(data.map(async ({ tokenId, seller, owner, price: unformattedPrice }) => {
+      const tokenURI = await contract.tokenURI(tokenId);
+      // console.log('tokenuri', tokenURI);
+      const tokenURLData = await axios.get(`${tokenURI}/marketNft.json`);
+      const { name, description, image } = JSON.parse(tokenURLData.data);
+      const price = ethers.utils.formatUnits(unformattedPrice.toString(), 'ether');
+
+      return {
+        price,
+        tokenId: tokenId.toNumber(),
+        seller,
+        owner,
+        image,
+        name,
+        description,
+        tokenURI,
+      };
+    }));
+
+    return items;
+    // console.log(items);
   };
 
   useEffect(() => {
@@ -102,7 +129,7 @@ export const NFTProvider = ({ children }) => {
   }, []);
 
   return (
-    <NFTContext.Provider value={{ nftCurrency, connectWallet, currentAccount, uploadToIPFS, createNFT }}>
+    <NFTContext.Provider value={{ nftCurrency, connectWallet, currentAccount, uploadToIPFS, createNFT, fetchNFTs }}>
       {children}
     </NFTContext.Provider>
   );
