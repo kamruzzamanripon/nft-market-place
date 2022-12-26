@@ -51,6 +51,8 @@ const NFTDetails = () => {
   const [successModal, setSuccessModal] = useState(false);
   const router = useRouter();
 
+  console.log('curent accout1', nft.seller);
+  console.log('curent accout2', currentAccount);
   useEffect(() => {
     if (!router.isReady) return;
     setNft(router.query);

@@ -17,9 +17,9 @@ export const NFTProvider = ({ children }) => {
     if (!window.ethereum) return alert('please install MetaMask');
 
     const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-
     if (accounts.length) {
       setCurrentAccount(accounts[0]);
+      // console.log('checkIfWalletIsConnected', currentAccount);
     } else {
       console.log('No accounts found');
     }
