@@ -28,5 +28,6 @@
 4. npx hardhat run --network localhost scripts/deploy.js
 5. when deploy hardhat then copy contract address and then past this address into context/constants.js file
 6. And also copy file "NFTMarketplace.json" from artifacts/NFTMarketplace.sol and past this file into context folder
+7. Then fillup Api in .env file. That is Web3StorageApi, ALCHEMY_API_KEY and your metaMask Private Key. 
 
 
