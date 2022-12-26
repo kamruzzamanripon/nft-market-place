@@ -48,4 +48,5 @@ frontendFile.zip
 
 .secret
 next.config.js
+/context/constants.js
 

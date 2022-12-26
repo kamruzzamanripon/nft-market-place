@@ -105,7 +105,7 @@ const Navbar = () => {
             }}
           >
             <Image src={images.logo02} objectFit="contain" width={32} height={32} alt="logo" />
-            <p className="dark:text-white text-nft-black-1 font-semibold text-lg ml-1">CrypToket</p>
+            <p className="dark:text-white text-nft-black-1 font-semibold text-lg ml-1">Rip</p>
           </div>
         </Link>
         <Link href="/">

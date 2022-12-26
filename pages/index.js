@@ -117,7 +117,7 @@ const Home = () => {
           <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold ml-4 xs:ml-0">That&apos; weired.. No NFTs for sale!</h1>
         ) : isLoading ? <Loader /> : (
           <>
-            {/* Best Creator */}
+            {/* Top Sellers */}
             <div>
               <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold ml-4 xs:ml-0">Top Sellers</h1>
               <div className="relative flex-1 max-w-full flex mt-3" ref={parentRef}>
@@ -158,7 +158,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            {/* End Best Creator */}
+            {/* End Top Sellers */}
 
             {/* Hot Bids */}
             <div className="mt-10">
