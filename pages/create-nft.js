@@ -5,7 +5,7 @@ import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 import images from '../assets';
-import { Button, Input } from '../components';
+import { Button, Input, Loader } from '../components';
 import { NFTContext } from '../context/NFTContext';
 
 const CreateNFT = () => {
@@ -13,14 +13,14 @@ const CreateNFT = () => {
   const { theme } = useTheme();
   const [formInput, setFormInput] = useState({ price: '', name: '', description: '' });
   const router = useRouter();
-  const { uploadToIPFS, createNFT } = useContext(NFTContext);
+  const { uploadToIPFS, createNFT, isLoadingNFT } = useContext(NFTContext);
 
   // console.log('form data', formInput);
   const onDrop = useCallback(async (acceptedFile) => {
     // upload image to the ipfs
-    console.log('acceptedFile', acceptedFile);
+    // console.log('acceptedFile', acceptedFile);
     const url = await uploadToIPFS(acceptedFile);
-    console.log('ipfs File', url);
+    // console.log('ipfs File', url);
     setFileUrl(url);
   }, []);
   const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
@@ -35,6 +35,14 @@ const CreateNFT = () => {
     ${isDragAccept && 'border-file-accept'}   
     ${isDragReject && 'border-file-reject'}`
   ), [isDragActive, isDragAccept, isDragReject]);
+
+  if (isLoadingNFT) {
+    return (
+      <div className="flexStart min-h-screen">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <div className="flex justify-center sm:px-4 p-12">
@@ -59,7 +67,7 @@ const CreateNFT = () => {
                     height={100}
                     objectFit="contain"
                     alt="file Upload"
-                    className={theme === 'light' && 'filter invert'}
+                    className={theme === 'light' ? 'filter invert' : ''}
                   />
                 </div>
 
